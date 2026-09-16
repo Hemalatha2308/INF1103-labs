@@ -28,3 +28,7 @@ while quantity != "quit":
     else:
         print("Invalid input. Please enter a number.")
         failed_entries += 1
+
+# Print the total inventory and number of failed/rejected entries
+print("Total Units Processed:", inventory)
+print("Number of Failed/Rejected Entries:", failed_entries)
