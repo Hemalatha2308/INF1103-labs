@@ -58,3 +58,5 @@ while True:
             break
 
 
+# Generate final report
+generate_report(inventory, failed_entries)
