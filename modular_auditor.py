@@ -27,4 +27,8 @@ def calculate_tax(amount):
     tax = amount * 0.10
     return tax
 
+#add generate_report function to display the total units processed and number of failed/rejected entries
+def generate_report(total_units, failed_attempts):
+    print("Total Units Processed:", total_units)
+    print("Number of Failed/Rejected Entries:", failed_attempts)
 
