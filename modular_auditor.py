@@ -17,3 +17,7 @@ def get_valid_input():
         else:
             print("Invalid input. Please enter a number.")
     
+#add process_delivery function to add the delivery to the total
+def process_delivery(current_total, new_value):
+    new_total = current_total + new_value
+    return new_total 
