@@ -21,3 +21,10 @@ def get_valid_input():
 def process_delivery(current_total, new_value):
     new_total = current_total + new_value
     return new_total 
+
+#add calculate_tax function to calculate 10% tax on the total amount
+def calculate_tax(amount):
+    tax = amount * 0.10
+    return tax
+
+
