@@ -1,6 +1,7 @@
 # Initialize inventory auditor
 inventory = 0
 failed_entries = 0
+transaction_history = []
 
 # Load previously saved inventory
 def load_inventory():
@@ -49,6 +50,9 @@ def generate_report(total_units, failed_attempts):
     print("Number of Failed/Rejected Entries:", failed_attempts)
 
 
+# Load previously saved inventory
+inventory = load_inventory()
+
 # Run the inventory audit
 while True:
     quantity = get_valid_input()
@@ -62,6 +66,7 @@ while True:
     else:
         inventory = process_delivery(inventory, quantity)
         tax = calculate_tax(quantity)
+        transaction_history.append(quantity)
 
         if inventory > 500:
             print("ALERT: Inventory exceeds 500 units!")
