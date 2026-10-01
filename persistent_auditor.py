@@ -14,6 +14,17 @@ def load_inventory():
     except FileNotFoundError:
         return 0 
 
+# Save inventory and transaction history
+def save_inventory(total_units, transaction_history):
+    file = open("inventory.txt", "w")
+
+    file.write(str(total_units) + "\n")
+
+    for transaction in transaction_history:
+        file.write(str(transaction) + "\n")
+
+    file.close()
+
 # Add get_valid_input function to prompt user for stock quantity and invalid input handling
 def get_valid_input():
     quantity = ""
@@ -58,6 +69,7 @@ while True:
     quantity = get_valid_input()
 
     if quantity == "quit":
+        save_inventory(inventory, transaction_history)
         break
 
     elif quantity == -1:
