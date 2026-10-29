@@ -4,5 +4,11 @@
         "name": "Monitor",
         "price": 299.9,
         "stock": 10
+    },
+    {
+        "id": "P009",
+        "name": "Mouse",
+        "price": 15.0,
+        "stock": 40
     }
 ]
