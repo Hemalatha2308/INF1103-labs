@@ -1,16 +1,57 @@
+
+import json
+import os
+
 from product import Product
 from inventory import Inventory
 
 
-inventory = Inventory()
+def load_inventory():
+    inventory = Inventory()
 
-product1 = Product("P001", "Laptop", 1200.00, 15)
-product2 = Product("P002", "Mouse", 25.50, 40)
-product3 = Product("P003", "Keyboard", 45.00, 25)
+    if os.path.exists("inventory.json"):
+        file = open("inventory.json", "r")
+        products = json.load(file)
+        file.close()
 
-inventory.add_product(product1)
-inventory.add_product(product2)
-inventory.add_product(product3)
+        for item in products:
+            product = Product(
+                item["id"],
+                item["name"],
+                item["price"],
+                item["stock"]
+            )
+            inventory.add_product(product)
+
+        print("inventory.json found.")
+        print("Inventory loaded successfully.")
+
+    else:
+        print("inventory.json not found. Starting with empty inventory.")
+
+    return inventory
+
+
+def save_inventory(inventory):
+    products = []
+
+    for product in inventory.get_all_products():
+        item = {
+            "id": product.get_product_id(),
+            "name": product.get_name(),
+            "price": product.get_price(),
+            "stock": product.get_stock()
+        }
+        products.append(item)
+
+    file = open("inventory.json", "w")
+    json.dump(products, file, indent=4)
+    file.close()
+
+    print("Inventory saved successfully to inventory.json.")
+
+
+inventory = load_inventory()
 
 
 while True:
@@ -63,10 +104,14 @@ while True:
             print("Product not found.")
 
     elif option == "5":
-        print("Save functionality will be added in Phase 4.")
+        print("Saving inventory...")
+        save_inventory(inventory)
 
     elif option == "6":
+        print("Saving inventory before exit...")
+        save_inventory(inventory)
         print("Thank you for using Inventory Management System.")
+        print("Program terminated.")
         break
 
     else:
