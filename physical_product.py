@@ -16,3 +16,7 @@ class PhysicalProduct(Product, CanBeShipped):
 
     def calculate_shipping_cost(self):
         return self.__weight * 2
+    
+    def get_weight(self):
+        return self.__weight
+

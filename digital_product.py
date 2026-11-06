@@ -12,3 +12,6 @@ class DigitalProduct(Product):
 
     def get_fulfilment_info(self):
         return "This product is delivered digitally."
+
+    def get_download_size(self):
+        return self.__download_size

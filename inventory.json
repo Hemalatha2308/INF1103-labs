@@ -3,12 +3,24 @@
         "id": "P004",
         "name": "Monitor",
         "price": 299.9,
-        "stock": 10
+        "stock": 10,
+        "type": "physical",
+        "weight": 4.5
     },
     {
         "id": "P009",
         "name": "Mouse",
         "price": 15.0,
-        "stock": 40
+        "stock": 40,
+        "type": "physical",
+        "weight": 0.2
+    },
+    {
+        "id": "D001",
+        "name": "Antivirus",
+        "price": 49.9,
+        "stock": 100,
+        "type": "digital",
+        "download_size": 250.0
     }
 ]
