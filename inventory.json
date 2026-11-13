@@ -4,6 +4,11 @@
         "name": "Monitor",
         "price": 299.9,
         "stock": 10,
+        "supplier": {
+            "supplier_id": "S001",
+            "name": "Default Supplier",
+            "contact_email": "default@example.com"
+        },
         "type": "physical",
         "weight": 4.5
     },
@@ -12,6 +17,11 @@
         "name": "Mouse",
         "price": 15.0,
         "stock": 40,
+        "supplier": {
+            "supplier_id": "S001",
+            "name": "Default Supplier",
+            "contact_email": "default@example.com"
+        },
         "type": "physical",
         "weight": 0.2
     },
@@ -20,7 +30,25 @@
         "name": "Antivirus",
         "price": 49.9,
         "stock": 100,
+        "supplier": {
+            "supplier_id": "S001",
+            "name": "Default Supplier",
+            "contact_email": "default@example.com"
+        },
         "type": "digital",
         "download_size": 250.0
+    },
+    {
+        "id": "P007",
+        "name": "Keyboard",
+        "price": 30.0,
+        "stock": 50,
+        "supplier": {
+            "supplier_id": "S071",
+            "name": "Default Supplier",
+            "contact_email": "default@example.com"
+        },
+        "type": "physical",
+        "weight": 5.0
     }
 ]

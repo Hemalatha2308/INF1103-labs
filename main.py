@@ -1,10 +1,10 @@
-
 import json
 import os
 
 from physical_product import PhysicalProduct
 from digital_product import DigitalProduct
 from inventory import Inventory
+from supplier import Supplier
 
 
 def load_inventory():
@@ -17,13 +17,30 @@ def load_inventory():
 
         for item in products:
 
+            if "supplier" in item:
+                supplier_data = item["supplier"]
+
+                supplier = Supplier(
+                    supplier_data["supplier_id"],
+                    supplier_data["name"],
+                    supplier_data["contact_email"]
+                )
+
+            else:
+                supplier = Supplier(
+                    "S001",
+                    "Default Supplier",
+                    "default@example.com"
+                )
+
             if item["type"] == "physical":
                 product = PhysicalProduct(
                     item["id"],
                     item["name"],
                     item["price"],
                     item["stock"],
-                    item["weight"]
+                    item["weight"],
+                    supplier
                 )
 
             elif item["type"] == "digital":
@@ -32,7 +49,8 @@ def load_inventory():
                     item["name"],
                     item["price"],
                     item["stock"],
-                    item["download_size"]
+                    item["download_size"],
+                    supplier
                 )
 
             else:
@@ -58,7 +76,12 @@ def save_inventory(inventory):
             "id": product.get_product_id(),
             "name": product.get_name(),
             "price": product.get_price(),
-            "stock": product.get_stock()
+            "stock": product.get_stock(),
+            "supplier": {
+                "supplier_id": product.supplier.supplier_id,
+                "name": product.supplier.name,
+                "contact_email": product.supplier.contact_email
+            }
         }
 
         if isinstance(product, PhysicalProduct):
@@ -108,6 +131,17 @@ while True:
         price = float(input("Price: "))
         stock = int(input("Stock Quantity: "))
 
+        print("Supplier Details")
+        supplier_id = input("Supplier ID: ")
+        supplier_name = input("Supplier Name: ")
+        contact_email = input("Supplier Contact Email: ")
+
+        supplier = Supplier(
+            supplier_id,
+            supplier_name,
+            contact_email
+        )
+
         if product_type == "1":
             weight = float(input("Weight (kg): "))
 
@@ -116,7 +150,8 @@ while True:
                 name,
                 price,
                 stock,
-                weight
+                weight,
+                supplier
             )
 
         elif product_type == "2":
@@ -127,7 +162,8 @@ while True:
                 name,
                 price,
                 stock,
-                download_size
+                download_size,
+                supplier
             )
 
         else:
@@ -159,8 +195,10 @@ while True:
             print(product.get_fulfilment_info())
 
             if isinstance(product, PhysicalProduct):
-                print("Shipping Cost: $", 
-                      f"{product.calculate_shipping_cost():.2f}")
+                print(
+                    "Shipping Cost: $",
+                    f"{product.calculate_shipping_cost():.2f}"
+                )
 
         else:
             print("Product not found.")
