@@ -7,6 +7,7 @@ from digital_product import DigitalProduct
 from inventory import Inventory
 from supplier import Supplier
 from product_factory import ProductFactory
+from input_helpers import get_positive_float
 
 
 def load_inventory():
@@ -122,7 +123,7 @@ while True:
 
         product_id = input("Product ID: ")
         name = input("Product Name: ")
-        price = float(input("Price: "))
+        price = get_positive_float("Price: ")
         stock = int(input("Stock Quantity: "))
 
         print("Supplier Details")
