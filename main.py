@@ -1,3 +1,4 @@
+
 import json
 import os
 
@@ -5,6 +6,7 @@ from physical_product import PhysicalProduct
 from digital_product import DigitalProduct
 from inventory import Inventory
 from supplier import Supplier
+from product_factory import ProductFactory
 
 
 def load_inventory():
@@ -33,28 +35,20 @@ def load_inventory():
                     "default@example.com"
                 )
 
-            if item["type"] == "physical":
-                product = PhysicalProduct(
+            try:
+                product = ProductFactory.create(
+                    item["type"],
                     item["id"],
                     item["name"],
                     item["price"],
                     item["stock"],
-                    item["weight"],
-                    supplier
+                    supplier,
+                    weight=item.get("weight", 0.0),
+                    download_size=item.get("download_size", 0.0)
                 )
 
-            elif item["type"] == "digital":
-                product = DigitalProduct(
-                    item["id"],
-                    item["name"],
-                    item["price"],
-                    item["stock"],
-                    item["download_size"],
-                    supplier
-                )
-
-            else:
-                print("Unknown product type:", item["type"])
+            except ValueError as error:
+                print(error)
                 continue
 
             inventory.add_product(product)
@@ -144,31 +138,28 @@ while True:
 
         if product_type == "1":
             weight = float(input("Weight (kg): "))
-
-            product = PhysicalProduct(
-                product_id,
-                name,
-                price,
-                stock,
-                weight,
-                supplier
-            )
+            product_type_name = "physical"
+            download_size = 0.0
 
         elif product_type == "2":
             download_size = float(input("Download Size (MB): "))
-
-            product = DigitalProduct(
-                product_id,
-                name,
-                price,
-                stock,
-                download_size,
-                supplier
-            )
+            product_type_name = "digital"
+            weight = 0.0
 
         else:
             print("Invalid product type.")
             continue
+
+        product = ProductFactory.create(
+            product_type_name,
+            product_id,
+            name,
+            price,
+            stock,
+            supplier,
+            weight=weight,
+            download_size=download_size
+        )
 
         inventory.add_product(product)
 
